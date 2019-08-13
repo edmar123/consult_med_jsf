@@ -1,54 +1,48 @@
-/**
- * 
- */
 package br.com.consultemed.models;
 
 import java.io.Serializable;
 
+import javax.inject.Inject;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.com.consultemed.converters.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/**
- * @author carlosbarbosagomesfilho
- *
- */
-
-@NamedQueries({ @NamedQuery(name = "Medido.findAll", query = "SELECT m FROM Medico m")})
 @Entity
-@Table(name = "TB_MEDICOS")
+@Table
 @Data
-public class Medico implements Serializable, BaseEntity{ 
-	private static final long serialVersionUID = 1L;
+public class Consulta implements Serializable, BaseEntity {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Long id;
 	
-	@Column(name = "NOME")
-	private String nome;
+	@Column
+	private String descricao;
 	
-	@Column(name = "CRM")
-	private String crm;
+	@Getter
+	@Setter
+	@Inject
+	@OneToOne()
+	@JoinColumn(name="id_medico" )
+	private Medico medico;
 	
-	@Column(name = "EMAIL")
-	private String email;
+	@Inject
+	@OneToOne(cascade= {CascadeType.PERSIST ,CascadeType.REMOVE}) 
+	@JoinColumn(name="id_agendamento")
+	private Agendamento agendamento;
 	
-	@Column(name = "TELEFONE")
-	private String telefone;
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -57,7 +51,7 @@ public class Medico implements Serializable, BaseEntity{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Medico other = (Medico) obj;
+		Consulta other = (Consulta) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -74,6 +68,10 @@ public class Medico implements Serializable, BaseEntity{
 		return result;
 	}
 	
+//	@OneToMany(cascade=CascadeType.REMOVE)
+//	@JoinColumn(name="id_consulta")
+//	private List<Exame> exames;
 	
 	
+		
 }

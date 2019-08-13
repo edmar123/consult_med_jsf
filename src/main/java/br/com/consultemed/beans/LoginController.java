@@ -37,6 +37,14 @@ public class LoginController implements Serializable {
 		this.usuarioLogado.logout();
 		return "login?faces-redirect=true";
 	}
+
+	public UsuarioLogado getUsuarioLogado() {
+		return usuarioLogado;
+	}
+
+	public void setUsuarioLogado(UsuarioLogado usuarioLogado) {
+		this.usuarioLogado = usuarioLogado;
+	}
 	
 //	Fase 1: Restore View (Restauração da visão);
 //	Fase 2: Apply Request Values (Aplicar valores da requisição);

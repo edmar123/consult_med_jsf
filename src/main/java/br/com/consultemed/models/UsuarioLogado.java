@@ -42,7 +42,7 @@ public class UsuarioLogado implements Serializable {
 	public void logout() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		session.invalidate();
+		session.invalidate(); 
 		
 	}
 	
@@ -56,6 +56,14 @@ public class UsuarioLogado implements Serializable {
 			isLogeded = true;
 		}
 		return isLogeded;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 

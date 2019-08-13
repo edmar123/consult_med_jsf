@@ -13,7 +13,4 @@ import javax.inject.Inject;
 @ManagedBean
 public class UsuarioController{
 
-	
-	
-	
 }

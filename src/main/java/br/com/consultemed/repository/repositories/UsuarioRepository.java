@@ -3,27 +3,26 @@
  */
 package br.com.consultemed.repository.repositories;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import br.com.consultemed.models.Usuario;
-import br.com.consultemed.utils.JPAUtils;
 
 /**
- * @author carlosbarbosagomesfilho
+ * Classe responsável por gerar consultas a base de dados
+ * @author edmar
  *
  */
-public class UsuarioRepository {
+public class UsuarioRepository extends GenericRepository<Usuario, Long> {
 
-	EntityManagerFactory emf = JPAUtils.getEntityManagerFactory();
-	EntityManager factory = emf.createEntityManager();
+	public UsuarioRepository() {
+		super(Usuario.class);
+	}
 	
-	public List<Usuario> listaUsuarios() {
-		Query query = this.factory.createQuery("SELECT object(u) FROM Usuario as u");
-		return query.getResultList();
+	public boolean verificarExistenciaLogin(String login) {
+		TypedQuery<Boolean> query = this.manager.createQuery("select case when (count(u.id) > 0)"
+				+ " then true else false end from Usuario u where u.login= :login", Boolean.class)
+				.setParameter("login", login);
+		return query.getSingleResult();
 	}
 
 }

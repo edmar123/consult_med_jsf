@@ -22,38 +22,38 @@
 
 
 		<h:form id="frm">
-			<p:dataTable id="table-paciente" var="paciente"
-				value="#{pacienteController.listaPacientes()}">
+			<p:dataTable id="table-paciente" var="consulta"
+				value="#{consultaController.listaConsultas()}">
 
-				<p:column headerText="Nome">
-					<h:outputText value="#{paciente.pessoa.nome}" />
+				<p:column headerText="Descrição">
+					<h:outputText value="#{consulta.descricao}" />
 				</p:column>
 
 				<p:column headerText="Telefone">
-					<h:outputText value="#{paciente.pessoa.telefone}" />
+					<h:outputText value="#{consulta.medico.nome}" />
 				</p:column>
 
 				<p:column headerText="prontuario">
-					<h:outputText value="#{paciente.prontuario}" />
+					<h:outputText value="#{consulta.agendamento.dataAgendamento}" />
 				</p:column>
 
 				<p:column headerText="Email">
-					<h:outputText value="#{paciente.pessoa.usuario.login}" />
+					<h:outputText value="#{consulta.agendamento.dataAgendamento.paciente.nome}" />
 				</p:column>
 
 				<p:column>
-					<p:commandLink action="#{pacienteController.editar()}"
+					<p:commandLink action="#{consultaController.editar()}"
 						value="Editar">
 						<f:setPropertyActionListener
-							target="#{pacienteController.pacienteEditar}" value="#{paciente}" />
+							target="#{consultaController.editar}" value="#{consulta}" />
 					</p:commandLink>
 
 					<p:spacer width="10" />
 
-					<p:commandLink action="#{pacienteController.excluir()}"
+					<p:commandLink action="#{consultaController.excluir()}"
 						value="Excluir" update="@form" process="@this">
 						<f:setPropertyActionListener
-							target="#{pacienteController.pacienteEditar}" value="#{paciente}" />
+							target="#{consultaController.editar()}" value="#{consulta}" />
 					</p:commandLink>
 
 				</p:column>
@@ -63,10 +63,10 @@
 			<p:spacer height="30" width="10" />
 
 
-			<p:commandLink id="novoMedico"
-				action="#{pacienteController.novoPaciente()}"
+			<p:commandLink id="novaConsulta"
+				action="#{consultaController.novaConsulta()}"
 				style="margin-right:20px;">
-				<h:outputText value="Novo Paciente" />
+				<h:outputText value="Nova Consulta" />
 			</p:commandLink>
 		</h:form>
 

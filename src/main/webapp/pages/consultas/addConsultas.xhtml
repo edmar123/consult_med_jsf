@@ -1,0 +1,66 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/templates/Layout.xhtml">
+
+	<ui:define name="content">
+		<p:spacer height="10" />
+
+		<h:form>
+			<p:breadCrumb>
+				<p:menuitem value="Home" url="#" />
+				<p:menuitem value="Médicos" url="#" />
+			</p:breadCrumb>
+		</h:form>
+
+		<p:spacer height="10" />
+
+		<h:form>
+
+			<p:messages showDetail="true" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+			<p:panel id="cadastrarConsultas" header="Cadastro de Consultas"
+				style="margin-bottom:20px">
+				<h:panelGrid id="grid" columns="2">
+
+					<span class="ui-float-label"> <h:inputHidden
+							value="#{consultaController.consulta.id}" />
+					</span>
+
+					<h3>Descricao da consulta</h3>
+					<span class="ui-float-label"> <h:inputText id="descricao"
+							value="#{consultaController.consulta.descricao}" required="true" />
+					</span>
+
+					<h3>Médico</h3>
+
+					<p:selectOneMenu id="medico" value="#{consultaController.consulta.medico}" required="true" converter="generic">
+						<f:selectItem itemLabel="-- Selecione --" noSelectionOption="true" />
+						<f:selectItems value="#{consultaController.medicos}" var="medico"
+							itemValue="#{medico}" itemLabel="#{medico.nome}"/>
+					</p:selectOneMenu>
+					
+					
+				<!-- 	<h3>data Agendamento</h3>
+					<span>
+					<p:calendar id="dataAgendamento"  value="#{consultaController.consulta.agendamento.dataAgendamento}" >
+						    <f:convertDateTime type="localDate"  />
+					</p:calendar>
+					</span> -->
+
+				</h:panelGrid>
+
+			</p:panel>
+
+			<p:commandButton action="#{consultaController.addConsulta()}"
+				value="Salvar" />
+
+		</h:form>
+
+
+	</ui:define>
+
+</ui:composition>

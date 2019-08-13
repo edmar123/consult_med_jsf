@@ -4,7 +4,7 @@
 package br.com.consultemed.utils;
 
 /**
- * @author carlosbarbosagomesfilho
+ * @author edmar
  * Classe que representa as constantes do sistema.
  */
 

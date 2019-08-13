@@ -49,7 +49,7 @@ public class MedicoController{
 	
 	public String excluir() throws Exception {
 		this.medico = this.medicoEditar;
-		this.service.deletarMedico(this.medico.getId());
+		this.service.remover(this.medico.getId());
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "PrimeFaces Rocks."));
 		return "/pages/medicos/medicos.xhtml?faces-redirect=true";
 	}
@@ -60,12 +60,12 @@ public class MedicoController{
 	}
 	
 	public String addMedico() {
-		this.service.salvarMedico(this.medico);
+		this.service.salvar(this.medico);
 		return "/pages/medicos/medicos.xhtml?faces-redirect=true";
 	}
 	
 	public List<Medico> listaMedicos(){
-		this.medicos = this.service.listaMedico();
+		this.medicos = this.service.listar();
 		return medicos;
 	}
 }

@@ -1,26 +1,19 @@
 package br.com.consultemed.repository.security;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-import javax.transaction.Transactional;
 
 import br.com.consultemed.models.Usuario;
-import br.com.consultemed.utils.JPAUtils;
 
 public class AutenticadorRepository {
 
-	
-	EntityManagerFactory emf = JPAUtils.getEntityManagerFactory();
-	EntityManager factory = emf.createEntityManager();
-	
-	
-	
+	@Inject
+	EntityManager factory;
 	
 	public Usuario autenticador(String login, String senha) {
 		
 		Usuario usuario = null;
-		this.factory = emf.createEntityManager();
 		
 		try {
 			Query query = this.factory.createNamedQuery("Usuario.loginUsuario");

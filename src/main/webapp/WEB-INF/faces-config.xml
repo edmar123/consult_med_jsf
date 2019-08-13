@@ -9,7 +9,12 @@
 			<default-locale>pt_BR</default-locale>
 		</locale-config>
 	</application>
-
+	
+	<!-- <converter>
+		<display-name>BeanConverter</display-name>
+		<converter-id>BeanConverter</converter-id>
+		<converter-class>br.com.consultemed.converters.BeanConverter</converter-class>
+	</converter> -->
 <!-- 	<lifecycle> -->
 <!-- 		<phase-listener>br.com.consultemed.phaselistener.LoginPhaseListener</phase-listener> -->
 <!-- 	</lifecycle> -->
