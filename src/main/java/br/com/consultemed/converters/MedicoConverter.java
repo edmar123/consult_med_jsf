@@ -13,8 +13,8 @@ import javax.persistence.EntityManagerFactory;
 import br.com.consultemed.models.Medico;
 import br.com.consultemed.utils.JPAUtils;
 
-@FacesConverter(forClass = Medico.class, value = "generic")
-public class BeanConverter implements Serializable, Converter {
+@FacesConverter(forClass = Medico.class, value = "medicoConverter")
+public class MedicoConverter implements Serializable, Converter {
 	
 	EntityManagerFactory emf = JPAUtils.getEntityManagerFactory();
 	EntityManager manager = emf.createEntityManager();

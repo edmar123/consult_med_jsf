@@ -37,22 +37,47 @@
 
 					<h3>Médico</h3>
 
-					<p:selectOneMenu id="medico" value="#{consultaController.consulta.medico}" required="true" converter="generic">
+					<p:selectOneMenu id="medico"
+						value="#{consultaController.consulta.medico}" required="true"
+						converter="medicoConverter">
 						<f:selectItem itemLabel="-- Selecione --" noSelectionOption="true" />
 						<f:selectItems value="#{consultaController.medicos}" var="medico"
-							itemValue="#{medico}" itemLabel="#{medico.nome}"/>
+							itemValue="#{medico}" itemLabel="#{medico.nome}" />
 					</p:selectOneMenu>
+
+					<h3>Paciente</h3>
+
+					<p:selectOneMenu id="paciente"
+						value="#{consultaController.consulta.agendamento.paciente}"
+						required="true" converter="pacienteConverter">
+						<f:selectItem itemLabel="-- Selecione --" noSelectionOption="true" />
+						<f:selectItems value="#{consultaController.pacientes}"
+							var="paciente" itemValue="#{paciente}"
+							itemLabel="#{paciente.pessoa.nome}" />
+					</p:selectOneMenu>
+
+
+					<h3>data Agendamento</h3>
+					<span> <p:calendar id="dataAgendamento"
+							value="#{consultaController.consulta.agendamento.dataAgendamento}"
+							converter="localDateConverter">
+						</p:calendar>
+					</span>
 					
+					<h3>Status do agendamento</h3>
+					<!-- <p:selectOneMenu value="#{consultaController.consulta.agendamento.status}" id="status">
+						<f:selectItem itemLabel="Selecione..." itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{consultaController.consulta.agendamento.getStatus()}"  />
+					</p:selectOneMenu> -->
 					
-				<!-- 	<h3>data Agendamento</h3>
-					<span>
-					<p:calendar id="dataAgendamento"  value="#{consultaController.consulta.agendamento.dataAgendamento}" >
-						    <f:convertDateTime type="localDate"  />
-					</p:calendar>
-					</span> -->
+					<p:selectOneRadio value="#{consultaController.consulta.agendamento.status}"
+						  unselectable="true" >
+						<f:selectItems value="#{consultaController.consulta.agendamento.getStatus()}" var="tipo"
+						 itemLabel="tipo.descricao" />						 
+					</p:selectOneRadio>
 
 				</h:panelGrid>
-
 			</p:panel>
 
 			<p:commandButton action="#{consultaController.addConsulta()}"

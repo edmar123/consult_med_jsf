@@ -39,7 +39,7 @@ public class Consulta implements Serializable, BaseEntity {
 	private Medico medico;
 	
 	@Inject
-	@OneToOne(cascade= {CascadeType.PERSIST ,CascadeType.REMOVE}) 
+	@OneToOne(cascade= {CascadeType.ALL}) 
 	@JoinColumn(name="id_agendamento")
 	private Agendamento agendamento;
 	

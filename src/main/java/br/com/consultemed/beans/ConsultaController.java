@@ -12,10 +12,10 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import br.com.consultemed.models.Agendamento;
 import br.com.consultemed.models.Consulta;
 import br.com.consultemed.models.Medico;
 import br.com.consultemed.models.Paciente;
+import br.com.consultemed.models.StatusAgendamento;
 import br.com.consultemed.services.ConsultaService;
 import br.com.consultemed.services.MedicoService;
 import br.com.consultemed.services.PacienteService;
@@ -33,6 +33,9 @@ public class ConsultaController {
 	@Getter
 	@Setter
 	private List<Consulta> consultas;
+	
+	@Getter
+	private StatusAgendamento status;
 	
 	@Getter
 	@Setter
@@ -89,9 +92,13 @@ public class ConsultaController {
 	}
 
 	public String addConsulta() {
-		Consulta funcionarioAsalvar = this.consulta;
-
-		this.service.salvar(funcionarioAsalvar);
+		Consulta consultaASalvar = this.consulta;
+		
+		if (consultaASalvar.getId() != null) {
+			this.service.editar(consultaASalvar);
+		}else {
+			this.service.salvar(consultaASalvar);			
+		}
 		return "/pages/consultas/consultas.xhtml?faces-redirect=true";
 	}
 

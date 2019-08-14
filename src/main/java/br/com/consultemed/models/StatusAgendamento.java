@@ -13,4 +13,8 @@ public enum StatusAgendamento {
 	private StatusAgendamento(String descricao) {
 		this.decricao = descricao;
 	}
+	
+	public static StatusAgendamento[] getStatus() {
+		return StatusAgendamento.values();
+	}
 }

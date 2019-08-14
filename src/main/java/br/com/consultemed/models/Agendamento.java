@@ -1,5 +1,6 @@
 package br.com.consultemed.models;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.inject.Inject;
@@ -21,7 +22,7 @@ import lombok.EqualsAndHashCode;
 @Table
 @Data
 @EqualsAndHashCode(callSuper = false, of = {"id"})
-public class Agendamento {
+public class Agendamento implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
@@ -40,5 +41,8 @@ public class Agendamento {
 	
 	@Enumerated(EnumType.STRING)
 	private StatusAgendamento status;
-		
+	
+	public StatusAgendamento[] getStatus() {
+		return StatusAgendamento.getStatus();
+	}
 }
