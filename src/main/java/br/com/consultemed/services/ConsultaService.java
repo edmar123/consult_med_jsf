@@ -3,18 +3,14 @@
  */
 package br.com.consultemed.services;
 
+import java.time.LocalDate;
+
 import javax.inject.Inject;
 
 import br.com.consultemed.models.Consulta;
-import br.com.consultemed.models.Funcionario;
 import br.com.consultemed.repository.repositories.ConsultaRepository;
-import br.com.consultemed.repository.repositories.FuncionarioRepository;
 import br.com.consultemed.repository.repositories.GenericRepository;
 
-/**
- * 
- *
- */
 public class ConsultaService extends ServicoGenerico<Consulta, Long>{
 	
 	@Inject
@@ -28,5 +24,10 @@ public class ConsultaService extends ServicoGenerico<Consulta, Long>{
 	@Override
 	public GenericRepository<Consulta, Long> getRepository() {
 		return this.consultaRepository;
+	}
+	
+	public boolean existeConsultaComData(LocalDate dataAgendamento) {
+		boolean existeConsulta = this.consultaRepository.existeConsultaComData(dataAgendamento);
+		return existeConsulta;
 	}
 }

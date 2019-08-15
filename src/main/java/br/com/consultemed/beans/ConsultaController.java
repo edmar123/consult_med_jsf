@@ -3,6 +3,8 @@
  */
 package br.com.consultemed.beans;
 
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -11,6 +13,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.primefaces.component.export.CSVOptions;
 
 import br.com.consultemed.models.Consulta;
 import br.com.consultemed.models.Medico;
@@ -35,7 +39,12 @@ public class ConsultaController {
 	private List<Consulta> consultas;
 	
 	@Getter
-	private StatusAgendamento status;
+	@Setter
+	private LocalDate dataAtual;
+	
+	@Getter
+	@Setter
+	List<StatusAgendamento> statusAgendamento;
 	
 	@Getter
 	@Setter
@@ -71,6 +80,9 @@ public class ConsultaController {
 		if (this.pacientes == null) { 
 			this.pacientes = pacienteService.listar();
 		} 
+		this.statusAgendamento = Arrays.asList(StatusAgendamento.getStatus());
+		
+		this.dataAtual =LocalDate.now();
 	}
 
 	public String editar() {
@@ -93,17 +105,32 @@ public class ConsultaController {
 
 	public String addConsulta() {
 		Consulta consultaASalvar = this.consulta;
+		final boolean existeAgendamento = this.service.existeConsultaComData(consultaASalvar.getAgendamento().getDataAgendamento());
+		
+		if (existeAgendamento) {
+			FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_ERROR, "erro", 
+						"Já existe uma consulta agendada para esta data"));
+			return "";
+		}
+		
+		consultaASalvar.getAgendamento().setStatus(StatusAgendamento.AGENDADO);
 		
 		if (consultaASalvar.getId() != null) {
 			this.service.editar(consultaASalvar);
 		}else {
 			this.service.salvar(consultaASalvar);			
 		}
+		
 		return "/pages/consultas/consultas.xhtml?faces-redirect=true";
 	}
 
 	public List<Consulta> listaConsultas() {
 		this.consultas = this.service.listar();
 		return this.consultas;
+	}
+	
+	public StatusAgendamento[] getStatus() {
+		return StatusAgendamento.getStatus();
 	}
 }

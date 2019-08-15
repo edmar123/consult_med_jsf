@@ -58,24 +58,23 @@
 
 
 					<h3>data Agendamento</h3>
-					<span> <p:calendar id="dataAgendamento"
+					<span>
+					 <p:calendar id="dataAgendamento" autocomplete="off"
 							value="#{consultaController.consulta.agendamento.dataAgendamento}"
-							converter="localDateConverter">
-						</p:calendar>
+							converter="localDateConverter" mindate="#{consultaController.dataAtual}">
+					 </p:calendar>
 					</span>
 					
-					<h3>Status do agendamento</h3>
 					<!-- <p:selectOneMenu value="#{consultaController.consulta.agendamento.status}" id="status">
 						<f:selectItem itemLabel="Selecione..." itemValue=""
 							noSelectionOption="true" />
 						<f:selectItems value="#{consultaController.consulta.agendamento.getStatus()}"  />
 					</p:selectOneMenu> -->
 					
-					<p:selectOneRadio value="#{consultaController.consulta.agendamento.status}"
-						  unselectable="true" >
-						<f:selectItems value="#{consultaController.consulta.agendamento.getStatus()}" var="tipo"
-						 itemLabel="tipo.descricao" />						 
-					</p:selectOneRadio>
+					<!-- <p:selectOneMenu id="status" value="#{consultaController.consulta.agendamento.status}">
+						<f:selectItems value="#{consultaController.getStatus()}" 
+							 var="tipo"  itemValue="#{tipo}" itemLabel="#{tipo.descricao}" />						 
+					</p:selectOneMenu> -->
 
 				</h:panelGrid>
 			</p:panel>
