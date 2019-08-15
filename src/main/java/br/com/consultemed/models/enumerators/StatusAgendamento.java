@@ -1,4 +1,4 @@
-package br.com.consultemed.models;
+package br.com.consultemed.models.enumerators;
 
 public enum StatusAgendamento {
 	CANCELADO("Cancelado"), AGENDADO("Agendado"), REAGENDADO("Reagendamento");

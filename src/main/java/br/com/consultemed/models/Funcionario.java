@@ -1,5 +1,6 @@
 package br.com.consultemed.models;
 
+import javax.inject.Inject;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -20,6 +21,8 @@ public class Funcionario {
 	private String cargo;
 	@Column
 	private String setor;
+	
+	@Inject
 	@Embedded
 	private Pessoa pessoa;
 }

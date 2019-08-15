@@ -22,11 +22,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * @author carlosbarbosagomesfilho
+ * @author edmar soares
  *
  */
 
-@NamedQueries({ @NamedQuery(name = "Medido.findAll", query = "SELECT m FROM Medico m")})
 @Entity
 @Table(name = "TB_MEDICOS")
 @Data

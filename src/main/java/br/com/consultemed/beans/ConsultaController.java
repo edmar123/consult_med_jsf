@@ -19,7 +19,7 @@ import org.primefaces.component.export.CSVOptions;
 import br.com.consultemed.models.Consulta;
 import br.com.consultemed.models.Medico;
 import br.com.consultemed.models.Paciente;
-import br.com.consultemed.models.StatusAgendamento;
+import br.com.consultemed.models.enumerators.StatusAgendamento;
 import br.com.consultemed.services.ConsultaService;
 import br.com.consultemed.services.MedicoService;
 import br.com.consultemed.services.PacienteService;

@@ -14,6 +14,7 @@ import javax.inject.Named;
 import br.com.consultemed.models.Paciente;
 import br.com.consultemed.models.Pessoa;
 import br.com.consultemed.models.Usuario;
+import br.com.consultemed.models.enumerators.TipoUsuario;
 import br.com.consultemed.services.PacienteService;
 import br.com.consultemed.services.UsuarioService;
 import lombok.Getter;
@@ -35,17 +36,7 @@ public class PacienteController {
 	@Getter
 	@Setter
 	private Paciente Paciente;
-
-	@Inject
-	@Getter
-	@Setter
-	private Usuario usuario;
-
-	@Inject
-	@Getter
-	@Setter
-	private Pessoa pessoa;
-
+	
 	@Getter
 	@Setter
 	private Paciente PacienteEditar;
@@ -70,26 +61,31 @@ public class PacienteController {
 	}
 
 	public String novoPaciente() {
-		this.Paciente = new Paciente();  
+		this.Paciente = new Paciente();
 		return "/pages/pacientes/addPacientes.xhtml?faces-redirect=true";
 	}
 
-	public String addPaciente() {   
-		Paciente p = this.Paciente;  
-		p.setPessoa(this.pessoa);
-		p.getPessoa().setUsuario(this.usuario); 
+	public String addPaciente() {
+		Paciente pacienteAsalvar = this.Paciente;
 
-		boolean existeLogin = this.usuarioService.verificarExistenciaLogin(p.getPessoa().getUsuario().getLogin());
+		boolean existeLogin = this.usuarioService
+				.verificarExistenciaLogin(pacienteAsalvar.getPessoa().getUsuario().getLogin());
 
-		if (existeLogin) {  
-			FacesContext.getCurrentInstance().addMessage(null, 
+		if (existeLogin) {
+			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "login", "Já existe um login cadastrado"));
 			return "";
-		}else { 
-			this.service.salvar(this.Paciente);
-			return "/pages/pacientes/pacientes.xhtml?faces-redirect=true";		 	
 		}
-	}   
+		
+		pacienteAsalvar.getPessoa().getUsuario().setTipoUsuario(TipoUsuario.PACIENTE);
+		if (pacienteAsalvar.getId() != null) {
+			this.service.editar(pacienteAsalvar);
+		} else {
+			this.service.salvar(pacienteAsalvar);
+		}
+		return "/pages/pacientes/pacientes.xhtml?faces-redirect=true";
+
+	}
 
 	public List<Paciente> listaPacientes() {
 		this.Pacientes = this.service.listar();

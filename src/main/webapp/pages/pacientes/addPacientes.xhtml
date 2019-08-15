@@ -32,7 +32,7 @@
 
 					<h3>Nome do Paciente</h3>
 					<span class="ui-float-label"> <h:inputText id="nome"
-							value="#{pacienteController.pessoa.nome}" required="true" />
+							value="#{pacienteController.paciente.pessoa.nome}" required="true" />
 					</span>
 
 					<h3>Prontuário</h3>
@@ -42,21 +42,21 @@
 
 					<h3>Telefone</h3>
 					<span class="ui-float-label"> <h:inputText id="telefone"
-							value="#{pacienteController.pessoa.telefone}" required="true" />
+							value="#{pacienteController.paciente.pessoa.telefone}" required="true" />
 					</span>
 
 					<span class="ui-float-label"> <h:inputHidden
-							value="#{pacienteController.usuario.id}" />
+							value="#{pacienteController.paciente.pessoa.usuario.id}" />
 					</span>
 
 					<h3>Login de acesso</h3>
 					<span class="ui-float-label"> <h:inputText id="login"
-							value="#{pacienteController.usuario.login}" required="true" />
+							value="#{pacienteController.paciente.pessoa.usuario.login}" required="true" />
 					</span>
 
 					<h3>Senha de acesso</h3>
 					<span class="ui-float-label"> <h:inputSecret id="senha"
-							value="#{pacienteController.usuario.senha}" required="true" />
+							value="#{pacienteController.paciente.pessoa.usuario.senha}" required="true" />
 					</span>
 
 				</h:panelGrid>

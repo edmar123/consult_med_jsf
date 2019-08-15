@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import br.com.consultemed.models.enumerators.StatusAgendamento;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

@@ -3,6 +3,7 @@ package br.com.consultemed.models;
 import java.io.Serializable;
 
 import javax.annotation.Generated;
+import javax.inject.Inject;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -33,6 +34,7 @@ public class Pessoa implements Serializable {
 	@Column
 	private String telefone;
 	
+	@Inject
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="id_usuario") 
 	private Usuario usuario;

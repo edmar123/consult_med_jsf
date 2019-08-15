@@ -33,7 +33,7 @@
 
 					<h3>Nome do Funcionário</h3>
 					<span class="ui-float-label"> <h:inputText id="nome"
-							value="#{funcionarioControler.pessoa.nome}" required="true" />
+							value="#{funcionarioControler.funcionario.pessoa.nome}" required="true" />
 					</span>
 
 					<h3>Setor</h3>
@@ -49,21 +49,21 @@
 
 					<h3>Telefone</h3>
 					<span class="ui-float-label"> <h:inputText id="telefone"
-							value="#{funcionarioControler.pessoa.telefone}" required="true" />
+							value="#{funcionarioControler.funcionario.pessoa.telefone}" required="true" />
 					</span>
 
 					<span class="ui-float-label"> <h:inputHidden
-							value="#{funcionarioControler.usuario.id}" />
+							value="#{funcionarioControler.funcionario.pessoa.usuario.id}" />
 					</span>
 
 					<h3>Login de acesso</h3>
 					<span class="ui-float-label"> <h:inputText id="login"
-							value="#{funcionarioControler.usuario.login}" required="true" />
+							value="#{funcionarioControler.funcionario.pessoa.usuario.login}" required="true" />
 					</span>
 
 					<h3>Senha de acesso</h3>
 					<span class="ui-float-label"> <h:inputSecret id="senha"
-							value="#{funcionarioControler.usuario.senha}" required="true" />
+							value="#{funcionarioControler.funcionario.pessoa.usuario.senha}" required="true" />
 					</span>
 
 				</h:panelGrid>
