@@ -4,6 +4,8 @@
 package br.com.consultemed.services;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -26,8 +28,12 @@ public class ConsultaService extends ServicoGenerico<Consulta, Long>{
 		return this.consultaRepository;
 	}
 	
-	public boolean existeConsultaComData(LocalDate dataAgendamento) {
-		boolean existeConsulta = this.consultaRepository.existeConsultaComData(dataAgendamento);
+	public boolean existeConsultaComData(LocalDate dataAgendamento, LocalTime horaAgendamento, String nomeMedico) {
+		boolean existeConsulta = this.consultaRepository.existeConsultaComData(dataAgendamento, horaAgendamento,nomeMedico);
 		return existeConsulta;
+	}
+	
+	public List<Consulta> buscarPorDataAgendamento(final LocalDate dataAgemdamento){
+		return this.consultaRepository.buscarPorDataAgendamento(dataAgemdamento);
 	}
 }

@@ -12,8 +12,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.consultemed.models.Paciente;
-import br.com.consultemed.models.Pessoa;
-import br.com.consultemed.models.Usuario;
 import br.com.consultemed.models.enumerators.TipoUsuario;
 import br.com.consultemed.services.PacienteService;
 import br.com.consultemed.services.UsuarioService;
@@ -68,23 +66,15 @@ public class PacienteController {
 	public String addPaciente() {
 		Paciente pacienteAsalvar = this.Paciente;
 
-		boolean existeLogin = this.usuarioService
-				.verificarExistenciaLogin(pacienteAsalvar.getPessoa().getUsuario().getLogin());
+		Paciente pacienteSalvo= this.service.salvarPaciente(pacienteAsalvar);
 
-		if (existeLogin) {
+		if (pacienteSalvo == null) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, "login", "Já existe um login cadastrado"));
 			return "";
 		}
 		
-		pacienteAsalvar.getPessoa().getUsuario().setTipoUsuario(TipoUsuario.PACIENTE);
-		if (pacienteAsalvar.getId() != null) {
-			this.service.editar(pacienteAsalvar);
-		} else {
-			this.service.salvar(pacienteAsalvar);
-		}
 		return "/pages/pacientes/pacientes.xhtml?faces-redirect=true";
-
 	}
 
 	public List<Paciente> listaPacientes() {

@@ -18,10 +18,13 @@ public class UsuarioRepository extends GenericRepository<Usuario, Long> {
 		super(Usuario.class);
 	}
 	
-	public boolean verificarExistenciaLogin(String login) {
+	public boolean verificarExistenciaLogin(String login, String loginAntigo) {
 		TypedQuery<Boolean> query = this.manager.createQuery("select case when (count(u.id) > 0)"
-				+ " then true else false end from Usuario u where u.login= :login", Boolean.class)
-				.setParameter("login", login);
+				+ " then true else false end from Usuario u where u.login= :login"
+				+ " And u.login != :loginAntigo", Boolean.class)
+				.setParameter("login", login)
+				.setParameter("loginAntigo", loginAntigo);
+				
 		return query.getSingleResult();
 	}
 

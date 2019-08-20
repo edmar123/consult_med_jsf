@@ -19,18 +19,34 @@
 		</h:form>
 
 		<p:spacer height="10" />
-
-
-		<h:form id="frm">
-			<p:dataTable id="table-paciente" var="consulta"
-				value="#{consultaController.listaConsultas()}">
+		
+		<h:form id="formBuscaConsulta">
+			<p:calendar id="dataAgendamento" autocomplete="off"
+				value="#{consultaController.dataConsulta}"
+				converter="localDateConverter" >
+			</p:calendar>
+			
+			<p:commandLink id="consultaPorData" update=":formTable"
+				action="#{consultaController.buscarPorDataAgendamento()}"
+				style="margin-right:20px;">
+				<h:outputText value="Consultar por data" />
+			</p:commandLink>
+		</h:form>
+		
+		<h:form id="formTable">
+			<p:dataTable id="table-paciente" var="consulta" rendered="true"
+				value="#{consultaController.consultas}">
 
 				<p:column headerText="Descrição">
 					<h:outputText value="#{consulta.descricao}" />
 				</p:column>
+				
+				<p:column headerText="Status da consulta">
+					<h:outputText value="#{consulta.agendamento.status}" />
+				</p:column>
 
 				<p:column headerText="Médico">
-					<h:outputText value="#{consulta.medico.nome}" />
+					<h:outputText value="#{consulta.medico.pessoa.nome}" />
 				</p:column>
 
 				<p:column headerText="Data de Agendamento">

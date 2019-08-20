@@ -5,21 +5,17 @@ package br.com.consultemed.models;
 
 import java.io.Serializable;
 
+import javax.inject.Inject;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import br.com.consultemed.converters.BaseEntity;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  * @author edmar soares
@@ -36,17 +32,13 @@ public class Medico implements Serializable, BaseEntity{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "NOME")
-	private String nome;
 	
 	@Column(name = "CRM")
 	private String crm;
 	
-	@Column(name = "EMAIL")
-	private String email;
-	
-	@Column(name = "TELEFONE")
-	private String telefone;
+	@Inject
+	@Embedded
+	private Pessoa pessoa;
 
 	@Override
 	public int hashCode() {

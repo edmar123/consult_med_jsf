@@ -12,12 +12,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import br.com.consultemed.models.Funcionario;
-import br.com.consultemed.models.Medico;
 import br.com.consultemed.models.Pessoa;
 import br.com.consultemed.models.Usuario;
 import br.com.consultemed.models.enumerators.TipoUsuario;
 import br.com.consultemed.services.FuncionarioService;
-import br.com.consultemed.services.MedicoService;
 import br.com.consultemed.services.UsuarioService;
 import lombok.Getter;
 import lombok.Setter;
@@ -80,22 +78,16 @@ public class FuncionarioControler{
 	public String addFuncionario() {
 		Funcionario funcionarioAsalvar = this.funcionario;
 		
-		boolean existeLogin = this.usuarioService.verificarExistenciaLogin(funcionarioAsalvar.getPessoa().getUsuario().getLogin());
-		
-		if (existeLogin) {
+		funcionarioAsalvar.getPessoa().getUsuario().setTipoUsuario(TipoUsuario.fUNCIONARIO);
+
+		Funcionario funcionarioSalvo = this.service.salvarFuncionario(funcionarioAsalvar);
+
+		if (funcionarioSalvo == null) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
 					"login", "Já existe um login cadastrado"));
 			return "";
 		}
-		
-		funcionarioAsalvar.getPessoa().getUsuario().setTipoUsuario(TipoUsuario.fUNCIONARIO);
-		
-		if (funcionarioAsalvar.getId() != null) {
-			this.service.editar(funcionarioAsalvar);
-		} else {
-			this.service.salvar(funcionarioAsalvar);
-		}
-		this.service.salvar(funcionarioAsalvar);
+	
 		return "/pages/funcionarios/funcionarios.xhtml?faces-redirect=true";
 	}
 	

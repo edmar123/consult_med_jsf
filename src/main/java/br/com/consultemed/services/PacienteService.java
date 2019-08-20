@@ -6,6 +6,7 @@ package br.com.consultemed.services;
 import javax.inject.Inject;
 
 import br.com.consultemed.models.Paciente;
+import br.com.consultemed.models.Usuario;
 import br.com.consultemed.repository.repositories.GenericRepository;
 import br.com.consultemed.repository.repositories.PacienteRepository;
 
@@ -26,11 +27,22 @@ public class PacienteService extends ServicoGenerico<Paciente, Long> {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public void salvar(Paciente paciente) {
-//		boolean existeLogin = this.usuarioService
-//				.verificarExistenciaLogin(paciente.getPessoa().getUsuario().getLogin());
-		this.getRepository().salvar(paciente);
+	
+	public Paciente salvarPaciente(Paciente paciente) {
+		Usuario usuario = this.preparadorPersistencia.prepararParaPersistir(paciente.getPessoa().getUsuario());
+
+		if (usuario == null) {
+			return null;
+		}
+		paciente.getPessoa().setUsuario(usuario);
+
+		if (paciente.getId() != null) {
+			this.pacienteRepository.editar(paciente);
+		} else {
+			this.pacienteRepository.salvar(paciente);
+		}
+
+		return paciente;
 	}
 
 	@Override

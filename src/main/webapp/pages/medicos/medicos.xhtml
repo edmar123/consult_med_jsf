@@ -25,11 +25,7 @@
 			<p:dataTable id="table-medicos" var="medico"
 				value="#{medicoController.listaMedicos()}">
 				<p:column headerText="Nome">
-					<h:outputText value="#{medico.nome}" />
-				</p:column>
-
-				<p:column headerText="E-mail">
-					<h:outputText value="#{medico.email}" />
+					<h:outputText value="#{medico.pessoa.nome}" />
 				</p:column>
 
 				<p:column headerText="CRM">
@@ -37,9 +33,9 @@
 				</p:column>
 
 				<p:column headerText="Telefone">
-					<h:outputText value="#{medico.telefone}" />
+					<h:outputText value="#{medico.pessoa.telefone}" />
 				</p:column>
-
+				
 				<p:column>
 					<p:commandLink action="#{medicoController.editar()}" value="Editar">
 						<f:setPropertyActionListener target="#{medicoController.medicoEditar}" value="#{medico}" />

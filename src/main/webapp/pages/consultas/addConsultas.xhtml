@@ -11,7 +11,7 @@
 		<h:form>
 			<p:breadCrumb>
 				<p:menuitem value="Home" url="#" />
-				<p:menuitem value="Médicos" url="#" />
+				<p:menuitem value="Consulta" url="#" />
 			</p:breadCrumb>
 		</h:form>
 
@@ -27,7 +27,7 @@
 				<h:panelGrid id="grid" columns="2">
 
 					<span class="ui-float-label"> <h:inputHidden
-							value="#{consultaController.consulta.id}" />
+							value="#{consultaController.consulta.id}"/>
 					</span>
 
 					<h3>Descricao da consulta</h3>
@@ -38,18 +38,18 @@
 					<h3>Médico</h3>
 
 					<p:selectOneMenu id="medico"
-						value="#{consultaController.consulta.medico}" required="true"
+						value="#{consultaController.consulta.medico}" 
 						converter="medicoConverter">
 						<f:selectItem itemLabel="-- Selecione --" noSelectionOption="true" />
 						<f:selectItems value="#{consultaController.medicos}" var="medico"
-							itemValue="#{medico}" itemLabel="#{medico.nome}" />
+							itemValue="#{medico}" itemLabel="#{medico.pessoa.nome}" />
 					</p:selectOneMenu>
 
 					<h3>Paciente</h3>
 
 					<p:selectOneMenu id="paciente"
 						value="#{consultaController.consulta.agendamento.paciente}"
-						required="true" converter="pacienteConverter">
+						 converter="pacienteConverter">
 						<f:selectItem itemLabel="-- Selecione --" noSelectionOption="true" />
 						<f:selectItems value="#{consultaController.pacientes}"
 							var="paciente" itemValue="#{paciente}"
@@ -58,23 +58,17 @@
 
 
 					<h3>data Agendamento</h3>
-					<span>
-					 <p:calendar id="dataAgendamento" autocomplete="off"
+					<span> <p:calendar id="dataAgendamento" autocomplete="off"
 							value="#{consultaController.consulta.agendamento.dataAgendamento}"
-							converter="localDateConverter" mindate="#{consultaController.dataAtual}">
-					 </p:calendar>
+							converter="localDateConverter"
+							mindate="#{consultaController.dataAtual}">
+						</p:calendar>
 					</span>
 					
-					<!-- <p:selectOneMenu value="#{consultaController.consulta.agendamento.status}" id="status">
-						<f:selectItem itemLabel="Selecione..." itemValue=""
-							noSelectionOption="true" />
-						<f:selectItems value="#{consultaController.consulta.agendamento.getStatus()}"  />
-					</p:selectOneMenu> -->
-					
-					<!-- <p:selectOneMenu id="status" value="#{consultaController.consulta.agendamento.status}">
-						<f:selectItems value="#{consultaController.getStatus()}" 
-							 var="tipo"  itemValue="#{tipo}" itemLabel="#{tipo.descricao}" />						 
-					</p:selectOneMenu> -->
+					<h3>Hora do Agendamento</h3>
+					<p:calendar converter="localTimeConverter" id="localTime" pattern="HH:mm" timeOnly="true"
+						 value="#{consultaController.consulta.agendamento.horaAgendamento}"/>
+
 
 				</h:panelGrid>
 			</p:panel>

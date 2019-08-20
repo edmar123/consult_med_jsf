@@ -14,8 +14,6 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.primefaces.component.export.CSVOptions;
-
 import br.com.consultemed.models.Consulta;
 import br.com.consultemed.models.Medico;
 import br.com.consultemed.models.Paciente;
@@ -41,6 +39,10 @@ public class ConsultaController {
 	@Getter
 	@Setter
 	private LocalDate dataAtual;
+	
+	@Getter
+	@Setter
+	private LocalDate dataConsulta;
 	
 	@Getter
 	@Setter
@@ -71,7 +73,7 @@ public class ConsultaController {
 	
 	@Inject
 	private PacienteService pacienteService;   
-
+	
 	@PostConstruct
 	public void init() {
 		if (this.medicos == null) {
@@ -80,6 +82,9 @@ public class ConsultaController {
 		if (this.pacientes == null) { 
 			this.pacientes = pacienteService.listar();
 		} 
+		if (this.consultas == null) {
+			this.listaConsultas();
+		}
 		this.statusAgendamento = Arrays.asList(StatusAgendamento.getStatus());
 		
 		this.dataAtual =LocalDate.now();
@@ -105,18 +110,21 @@ public class ConsultaController {
 
 	public String addConsulta() {
 		Consulta consultaASalvar = this.consulta;
-		final boolean existeAgendamento = this.service.existeConsultaComData(consultaASalvar.getAgendamento().getDataAgendamento());
+		final boolean existeAgendamento = this.service.existeConsultaComData(consultaASalvar.getAgendamento().getDataAgendamento()
+				,consultaASalvar.getAgendamento().getHoraAgendamento(),
+				consultaASalvar.getMedico().getPessoa().getNome());
 		
 		if (existeAgendamento) {
 			FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_ERROR, "erro", 
-						"Já existe uma consulta agendada para esta data"));
+						"Já existe uma consulta agendada para esta data com este médico"));
 			return "";
 		}
 		
 		consultaASalvar.getAgendamento().setStatus(StatusAgendamento.AGENDADO);
 		
 		if (consultaASalvar.getId() != null) {
+			consultaASalvar.getAgendamento().setStatus(StatusAgendamento.REAGENDADO);
 			this.service.editar(consultaASalvar);
 		}else {
 			this.service.salvar(consultaASalvar);			
@@ -126,8 +134,13 @@ public class ConsultaController {
 	}
 
 	public List<Consulta> listaConsultas() {
-		this.consultas = this.service.listar();
+		this.consultas = this.service.listar(); 
 		return this.consultas;
+	}
+	
+	public String buscarPorDataAgendamento(){
+		this.consultas = this.service.buscarPorDataAgendamento(this.dataConsulta);
+		return "";
 	}
 	
 	public StatusAgendamento[] getStatus() {

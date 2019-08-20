@@ -3,8 +3,6 @@
  */
 package br.com.consultemed.services;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import br.com.consultemed.models.Usuario;
@@ -25,8 +23,8 @@ public class UsuarioService extends ServicoGenerico<Usuario, Long> {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public boolean verificarExistenciaLogin(final String login) {
-		return this.usuarioRepository.verificarExistenciaLogin(login);
+	public boolean verificarExistenciaLogin(final String login, final String loginAntigo) {
+		return this.usuarioRepository.verificarExistenciaLogin(login, loginAntigo); 
 	}
 
 	@Override

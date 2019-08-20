@@ -19,8 +19,11 @@
 		<p:spacer height="10" />
 
 		<h:form>
+		<p:messages showDetail="true" closable="true">
+			<p:autoUpdate />
+		</p:messages>
 		 <p:panel id="cadastroMedicos" header="Cadastro de Médicos" style="margin-bottom:20px">
-		 	<p:messages/>
+		 	
 			<h:panelGrid columns="2">
 			
 				<span class="ui-float-label"> 
@@ -29,12 +32,7 @@
 				
 				<h3>Nome do Médico</h3>
 				<span class="ui-float-label"> 
-					<h:inputText id="nome" value="#{medicoController.medico.nome}" required="true"/> 
-				</span>
-				
-				<h3>E-mail do Médico</h3>
-				<span class="ui-float-label"> 
-					<h:inputText id="email" value="#{medicoController.medico.email}" required="true"/>
+					<h:inputText id="nome" value="#{medicoController.medico.pessoa.nome}"/> 
 				</span>
 				
 				<h3>CRM do Médico</h3>
@@ -44,7 +42,21 @@
 				
 				<h3>Telefone do Médico</h3>
 				<span class="ui-float-label"> 
-					<h:inputText id="telefone" value="#{medicoController.medico.telefone}" required="true"/> 
+					<h:inputText id="telefone" value="#{medicoController.medico.pessoa.telefone}" required="true"/> 
+				</span>
+				
+				<span class="ui-float-label"> <h:inputHidden
+					value="#{medicoController.medico.pessoa.usuario.id}" />
+				</span>
+				
+				<h3>E-mail do Médico</h3>
+				<span class="ui-float-label"> <h:inputText id="login"
+					value="#{medicoController.medico.pessoa.usuario.login}" />
+				</span>
+				
+				<h3>Senha</h3>
+				<span class="ui-float-label"> <h:inputText id="senha"
+					value="#{medicoController.medico.pessoa.usuario.senha}" />
 				</span>
 			
 			</h:panelGrid>

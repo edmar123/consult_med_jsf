@@ -2,6 +2,7 @@ package br.com.consultemed.models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.inject.Inject;
 import javax.persistence.Column;
@@ -17,31 +18,33 @@ import javax.persistence.Table;
 
 import br.com.consultemed.models.enumerators.StatusAgendamento;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Entity
 @Table
 @Data
 public class Agendamento implements Serializable {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
-	
+
 	@Column
 	private String nome;
-		
-	@Column(name="data_agendamento")
+
+	@Column(name = "data_agendamento")
 	private LocalDate dataAgendamento;
-	
+
+	@Column(name ="hora_agendamento")
+	private LocalTime horaAgendamento;
+
 	@Inject
 	@OneToOne
-	@JoinColumn(name="id_paciente")
+	@JoinColumn(name = "id_paciente")
 	private Paciente paciente;
-	
+
 	@Enumerated(EnumType.STRING)
 	private StatusAgendamento status;
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -66,6 +69,5 @@ public class Agendamento implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-	
-	
+
 }
