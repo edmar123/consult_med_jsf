@@ -3,6 +3,7 @@
  */
 package br.com.consultemed.repository.repositories;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import br.com.consultemed.models.Usuario;
@@ -26,6 +27,30 @@ public class UsuarioRepository extends GenericRepository<Usuario, Long> {
 				.setParameter("loginAntigo", loginAntigo);
 				
 		return query.getSingleResult();
+	}
+	
+	public Usuario logarNoSistma(final String login, final String senha) {
+		Usuario usuario = null;
+		
+		try {
+			
+			Query query = this.manager.createQuery("SELECT u FROM Usuario u WHERE u.login "
+					+ " = :login AND u.senha = :senha");
+					
+			query.setParameter("login", login);
+			query.setParameter("senha", senha);
+			
+			usuario = (Usuario) query.getSingleResult();
+			
+			return usuario;
+					
+		} catch (Exception e) {
+			e.getMessage();
+			this.manager.getTransaction().rollback();
+			
+		}
+		
+		return usuario;
 	}
 
 }

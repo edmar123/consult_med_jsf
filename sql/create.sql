@@ -1,7 +1,3 @@
-CREATE TABLE TB_USUARIOS (
-	
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	login VARCHAR (255) NOT NULL,
-	senha VARCHAR (10) NOT NULL
-);
-
+INSERT INTO public.tb_usuarios(
+            id, login, senha, tipousuario)
+    VALUES (1, "edmar@gmail", "123", "FUNCIONARIO");

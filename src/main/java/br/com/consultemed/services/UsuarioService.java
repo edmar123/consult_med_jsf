@@ -26,6 +26,10 @@ public class UsuarioService extends ServicoGenerico<Usuario, Long> {
 	public boolean verificarExistenciaLogin(final String login, final String loginAntigo) {
 		return this.usuarioRepository.verificarExistenciaLogin(login, loginAntigo); 
 	}
+	
+	public Usuario logar(final String login, final String senha) {
+		return this.usuarioRepository.logarNoSistma(login, senha);
+	}
 
 	@Override
 	protected GenericRepository<Usuario, Long> getRepository() {
