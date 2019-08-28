@@ -66,6 +66,13 @@
 	margin-right: 30px;
 }
 
+.form {
+	border: 2px;
+}
+
+.content {
+	background-color: #1e94d2; 
+}
 .aw-topbar {
 	color: #fff;
 }
